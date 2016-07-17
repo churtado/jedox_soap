@@ -1,0 +1,10 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:etl="http://ns.jedox.com/ETL-Server">
+   <soapenv:Header>
+	<etlsession>{session}</etlsession>
+   </soapenv:Header>
+   <soapenv:Body>
+      <etl:runExecution>
+         <etl:id>{id}</etl:id>
+      </etl:runExecution>
+   </soapenv:Body>
+</soapenv:Envelope>

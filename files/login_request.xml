@@ -1,0 +1,9 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:etl="http://ns.jedox.com/ETL-Server">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <etl:login>
+         <etl:user>{user}</etl:user>
+         <etl:password>{password}</etl:password>
+      </etl:login>
+   </soapenv:Body>
+</soapenv:Envelope>
