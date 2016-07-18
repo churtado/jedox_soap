@@ -8,17 +8,11 @@
          <etl:locator>{locator}</etl:locator>
          <!--Zero or more repetitions:-->
          <etl:variables>
-            <!--Optional: here add the variables you need for your ETL>
-            <xsd:name></xsd:name>
-            <xsd:value></xsd:value>
-			<xsd:name></xsd:name>
-            <xsd:value></xsd:value>
-			<xsd:name></xsd:name>
-            <xsd:value></xsd:value>
-			<xsd:name></xsd:name>
-            <xsd:value></xsd:value>
-			<xsd:name></xsd:name>
-            <xsd:value></xsd:value-->
+            <!--Optional: here add the variables you need for your ETL-->
+			<xsd:name>test_name1</xsd:name> 
+			<xsd:value>test_value1</xsd:value> 
+			<xsd:name>test_name2</xsd:name> 
+			<xsd:value>test_value2</xsd:value> 
          </etl:variables>
       </etl:addExecution>
    </soapenv:Body>

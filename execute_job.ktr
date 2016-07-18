@@ -10,33 +10,33 @@
     <directory>&#x2f;</directory>
     <parameters>
         <parameter>
-            <name>jedox_job</name>
-            <default_value>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;files&#x2f;jobs&#x2f;add_execution_example.xml</default_value>
-            <description/>
-        </parameter>
-        <parameter>
             <name>locator</name>
-            <default_value>sampleSoapETL.jobs.J_ComponentConfig</default_value>
+            <default_value/>
             <description/>
         </parameter>
         <parameter>
             <name>password</name>
-            <default_value>admin</default_value>
+            <default_value/>
             <description/>
         </parameter>
         <parameter>
             <name>soap_endpoint</name>
-            <default_value>http&#x3a;&#x2f;&#x2f;127.0.0.1&#x3a;7775&#x2f;etlserver&#x2f;services&#x2f;ETL-Server.ETL-ServerHttpSoap11Endpoint&#x2f;</default_value>
+            <default_value/>
             <description/>
         </parameter>
         <parameter>
             <name>user</name>
-            <default_value>admin</default_value>
+            <default_value/>
+            <description/>
+        </parameter>
+        <parameter>
+            <name>variables</name>
+            <default_value/>
             <description/>
         </parameter>
         <parameter>
             <name>waitForTermination</name>
-            <default_value>true</default_value>
+            <default_value/>
             <description/>
         </parameter>
     </parameters>
@@ -324,10 +324,10 @@
   <hop> <from>insert params for login</from><to>send login request</to><enabled>Y</enabled> </hop>
   <hop> <from>get variables</from><to>insert params for login</to><enabled>Y</enabled> </hop>
   <hop> <from>join add execution streams</from><to>insert params for add</to><enabled>Y</enabled> </hop>
-  <hop> <from>add execution request</from><to>Logging job definition</to><enabled>Y</enabled> </hop>
-  <hop> <from>add execution request</from><to>error loading job definition file</to><enabled>Y</enabled> </hop>
-  <hop> <from>run execution</from><to>Error running execution</to><enabled>Y</enabled> </hop>
-  <hop> <from>get status</from><to>error getting status</to><enabled>Y</enabled> </hop>
+  <hop> <from>send login request</from><to>log login</to><enabled>Y</enabled> </hop>
+  <hop> <from>add execution</from><to>log add execution</to><enabled>Y</enabled> </hop>
+  <hop> <from>run execution</from><to>log run execution</to><enabled>Y</enabled> </hop>
+  <hop> <from>get status</from><to>log get status</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Abort</name>
@@ -527,7 +527,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <filename>&#x24;&#x7b;jedox_job&#x7d;</filename>
+    <filename>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;files&#x2f;add_execution.xml</filename>
     <line_width>1000</line_width>
     <header>N</header>
     <buffer_size>50000</buffer_size>
@@ -1128,6 +1128,18 @@
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
+      <field>
+        <name>variables</name>
+        <variable>&#x24;&#x7b;variables&#x7d;</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
@@ -1168,6 +1180,17 @@
         <replace_by_string/>
         <set_empty_string>N</set_empty_string>
         <replace_field_by_string>locator</replace_field_by_string>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+      </field>
+      <field>
+        <in_stream_name>add_execution_xml</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>&#x7b;variables&#x7d;</replace_string>
+        <replace_by_string/>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string>variables</replace_field_by_string>
         <whole_word>no</whole_word>
         <case_sensitive>no</case_sensitive>
       </field>
@@ -2852,6 +2875,10 @@
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
+      </field>      <field>        <name>variables</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>        <select_unspecified>N</select_unspecified>
     </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
@@ -3072,6 +3099,10 @@
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
+      </field>      <field>        <name>variables</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>        <select_unspecified>N</select_unspecified>
     </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
@@ -3224,7 +3255,7 @@
     <name>send login request</name>
     <type>HTTPPOST</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
@@ -3389,7 +3420,7 @@
     </step>
 
   <step>
-    <name>Logging job definition</name>
+    <name>log login</name>
     <type>WriteToLog</type>
     <description/>
     <distribute>Y</distribute>
@@ -3403,19 +3434,25 @@
       <displayHeader>Y</displayHeader>
       <limitRows>N</limitRows>
       <limitRowsNumber>0</limitRowsNumber>
-      <logmessage>Beginning execution of job&#x3a; &#x24;&#x7b;jedox_job&#x7d;</logmessage>
+      <logmessage>Login request and result from jedox</logmessage>
     <fields>
+      <field>
+        <name>login_request_xml</name>
+        </field>
+      <field>
+        <name>login_result</name>
+        </field>
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>2336</xloc>
+      <xloc>704</xloc>
       <yloc>352</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>error loading job definition file</name>
+    <name>log add execution</name>
     <type>WriteToLog</type>
     <description/>
     <distribute>Y</distribute>
@@ -3429,19 +3466,25 @@
       <displayHeader>Y</displayHeader>
       <limitRows>N</limitRows>
       <limitRowsNumber>0</limitRowsNumber>
-      <logmessage>Error adding execution&#x3a; maybe the job xml file isn&#x27;t defined&#x3f;</logmessage>
+      <logmessage>Add execution request and result</logmessage>
     <fields>
+      <field>
+        <name>add_execution_xml</name>
+        </field>
+      <field>
+        <name>add_execution_result</name>
+        </field>
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1952</xloc>
+      <xloc>2528</xloc>
       <yloc>352</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Error running execution</name>
+    <name>log run execution</name>
     <type>WriteToLog</type>
     <description/>
     <distribute>Y</distribute>
@@ -3455,19 +3498,25 @@
       <displayHeader>Y</displayHeader>
       <limitRows>N</limitRows>
       <limitRowsNumber>0</limitRowsNumber>
-      <logmessage>For some reason the jedox server couldn&#x27;t execution the queued job</logmessage>
+      <logmessage>Run execution request and result</logmessage>
     <fields>
+      <field>
+        <name>run_execution_xml</name>
+        </field>
+      <field>
+        <name>run_execution_result</name>
+        </field>
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>4672</xloc>
-      <yloc>224</yloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>error getting status</name>
+    <name>log get status</name>
     <type>WriteToLog</type>
     <description/>
     <distribute>Y</distribute>
@@ -3481,13 +3530,19 @@
       <displayHeader>Y</displayHeader>
       <limitRows>N</limitRows>
       <limitRowsNumber>0</limitRowsNumber>
-      <logmessage>For some reason there was an error getting the status of the executed job</logmessage>
+      <logmessage>Get status request and result</logmessage>
     <fields>
+      <field>
+        <name>get_execution_status_xml</name>
+        </field>
+      <field>
+        <name>get_execution_status_result</name>
+        </field>
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>6432</xloc>
-      <yloc>224</yloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -3495,7 +3550,7 @@
   <step_error_handling>
       <error>
         <source_step>add execution</source_step>
-        <target_step>error adding execution</target_step>
+        <target_step/>
         <is_enabled>Y</is_enabled>
         <nr_valuename/>
         <descriptions_valuename/>
@@ -3507,7 +3562,7 @@
       </error>
       <error>
         <source_step>get status</source_step>
-        <target_step>error getting status</target_step>
+        <target_step/>
         <is_enabled>Y</is_enabled>
         <nr_valuename/>
         <descriptions_valuename/>
@@ -3519,7 +3574,7 @@
       </error>
       <error>
         <source_step>insert params for add</source_step>
-        <target_step>error adding execution</target_step>
+        <target_step/>
         <is_enabled>N</is_enabled>
         <nr_valuename/>
         <descriptions_valuename/>
@@ -3531,7 +3586,7 @@
       </error>
       <error>
         <source_step>insert status variables</source_step>
-        <target_step>error getting status</target_step>
+        <target_step/>
         <is_enabled>N</is_enabled>
         <nr_valuename/>
         <descriptions_valuename/>
@@ -3543,7 +3598,7 @@
       </error>
       <error>
         <source_step>run execution</source_step>
-        <target_step>Error running execution</target_step>
+        <target_step/>
         <is_enabled>Y</is_enabled>
         <nr_valuename/>
         <descriptions_valuename/>

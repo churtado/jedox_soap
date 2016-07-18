@@ -1,0 +1,16 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:etl="http://ns.jedox.com/ETL-Server" xmlns:xsd="http://service.etl.jedox.com/xsd">
+   <soapenv:Header>
+	<etlsession>{session}</etlsession>
+   </soapenv:Header>
+   <soapenv:Body>
+      <etl:addExecution>
+         <!--Optional:-->
+         <etl:locator>{locator}</etl:locator>
+         <!--Zero or more repetitions:-->
+         <etl:variables>
+            <!--Optional: here add the variables you need for your ETL-->
+			{variables}
+         </etl:variables>
+      </etl:addExecution>
+   </soapenv:Body>
+</soapenv:Envelope>
