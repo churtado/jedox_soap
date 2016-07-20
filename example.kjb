@@ -82,7 +82,7 @@
       <parameters>        <pass_all_parameters>Y</pass_all_parameters>
             <parameter>            <name>locator</name>
             <stream_name/>
-            <value>sampleSoapETL.jobs.J_ComponentConfig</value>
+            <value>test.jobs.test</value>
             </parameter>            <parameter>            <name>password</name>
             <stream_name/>
             <value>admin</value>

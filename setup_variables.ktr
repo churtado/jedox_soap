@@ -101,7 +101,7 @@
   <notepads>
   </notepads>
   <order>
-  <hop> <from>example</from><to>set up xml</to><enabled>N</enabled> </hop>
+  <hop> <from>example</from><to>set up xml</to><enabled>Y</enabled> </hop>
   <hop> <from>set up xml</from><to>concatenate the variables</to><enabled>Y</enabled> </hop>
   <hop> <from>get variables from result</from><to>set up xml</to><enabled>Y</enabled> </hop>
   <hop> <from>concatenate the variables</from><to>get variables</to><enabled>Y</enabled> </hop>
@@ -366,7 +366,7 @@
            </partitioning>
        <calculation><field_name>name_opening_tag</field_name>
 <calc_type>CONSTANT</calc_type>
-<field_a>&#x3c;xsd&#x3a;name&#x3e;</field_a>
+<field_a>&#x3c;etl&#x3a;variables&#x3e;&#x3c;xsd&#x3a;name&#x3e;</field_a>
 <field_b/>
 <field_c/>
 <value_type>String</value_type>
@@ -408,7 +408,7 @@
 </calculation>
        <calculation><field_name>value_closing_tag</field_name>
 <calc_type>CONSTANT</calc_type>
-<field_a>&#x3c;&#x2f;xsd&#x3a;value&#x3e; </field_a>
+<field_a>&#x3c;&#x2f;xsd&#x3a;value&#x3e;&#x3c;&#x2f;etl&#x3a;variables&#x3e;</field_a>
 <field_b/>
 <field_c/>
 <value_type>String</value_type>

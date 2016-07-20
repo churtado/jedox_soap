@@ -7,10 +7,8 @@
          <!--Optional:-->
          <etl:locator>{locator}</etl:locator>
          <!--Zero or more repetitions:-->
-         <etl:variables>
-            <!--Optional: here add the variables you need for your ETL-->
-			{variables}
-         </etl:variables>
+         <!--Optional: here add the variables you need for your ETL-->
+		 {variables}
       </etl:addExecution>
    </soapenv:Body>
 </soapenv:Envelope>

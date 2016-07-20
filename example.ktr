@@ -132,10 +132,12 @@
       </field>
     </fields>
     <data>
-      <line> <item>state</item><item>Indiana</item> </line>
-      <line> <item>country</item><item>USA</item> </line>
-      <line> <item>city</item><item>South Bend</item> </line>
-      <line> <item>year</item><item>1991</item> </line>
+      <line> <item>Region</item><item>France</item> </line>
+      <line> <item>Datatype</item><item>Budget</item> </line>
+      <line> <item>Measure</item><item>Units</item> </line>
+      <line> <item>Month</item><item>Feb</item> </line>
+      <line> <item>Year</item><item>2014</item> </line>
+      <line> <item>Product</item><item>Desktop Pro</item> </line>
     </data>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
